@@ -1,0 +1,218 @@
+/* =========================================================
+   layout.css — 应用骨架布局 + 响应式
+   ========================================================= */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ---------- 侧边栏（桌面）---------- */
+.sidebar {
+  width: var(--sidebar-w);
+  flex-shrink: 0;
+  background: var(--c-surface);
+  border-right: 1px solid var(--c-border);
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.sidebar__brand {
+  height: var(--topbar-h);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: 0 var(--space-5);
+  border-bottom: 1px solid var(--c-border);
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.sidebar__logo {
+  width: 32px;
+  height: 32px;
+  border-radius: 9px;
+  background: linear-gradient(135deg, var(--c-primary), var(--c-accent));
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-sm);
+}
+
+.nav {
+  padding: var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--r-sm);
+  color: var(--c-text-2);
+  font-weight: 500;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.nav__item:hover {
+  background: var(--c-surface-2);
+  color: var(--c-text);
+}
+.nav__item.is-active {
+  background: var(--c-primary-light);
+  color: var(--c-primary);
+  font-weight: 600;
+}
+.nav__icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.sidebar__foot {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--c-border);
+  color: var(--c-text-3);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ---------- 主区域 ---------- */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.topbar {
+  height: var(--topbar-h);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--c-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+.topbar__title {
+  font-size: 17px;
+  font-weight: 700;
+}
+.topbar__sub {
+  color: var(--c-text-3);
+  font-size: 13px;
+  margin-top: 2px;
+}
+.topbar__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  color: var(--c-text-2);
+}
+
+.page-container {
+  padding: var(--space-6);
+  flex: 1;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 页面切换 */
+.page {
+  display: none;
+  animation: page-in 0.22s ease;
+}
+.page.is-active {
+  display: block;
+}
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* 页面头部（标题 + 操作） */
+.page-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+.page-head h1 {
+  font-size: 22px;
+}
+.page-head p {
+  color: var(--c-text-3);
+  margin-top: 4px;
+  font-size: 13px;
+}
+.page-head--right {
+  justify-content: flex-end;
+}
+
+/* ---------- 响应式：≤768px 侧栏转底部导航 ---------- */
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    position: static;
+    flex-direction: row;
+    align-items: center;
+    border-right: none;
+    border-bottom: 1px solid var(--c-border);
+    z-index: 30;
+  }
+  .sidebar__brand {
+    border: none;
+    height: auto;
+    padding: var(--space-3) var(--space-4);
+  }
+  .sidebar__foot {
+    display: none;
+  }
+  .nav {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: var(--space-2);
+    gap: 2px;
+    flex: 1;
+  }
+  .nav__item {
+    flex-direction: column;
+    gap: 3px;
+    padding: 6px 10px;
+    font-size: 11px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .nav__item span {
+    font-size: 11px;
+  }
+  .page-container {
+    padding: var(--space-4);
+  }
+  .topbar {
+    padding: 0 var(--space-4);
+  }
+  .page-head {
+    flex-direction: column;
+  }
+}
